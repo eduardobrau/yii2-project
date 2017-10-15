@@ -7,10 +7,14 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'pt-BR',
+    'timeZone' => 'America/Sao_Paulo',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'FVGA5Bza-zy1qTvYFLlEcN08P_jbTLnU',
+             //http://www.yiiframework.com/wiki/755/how-to-hide-frontend-web-in-url-addresses-on-apache/
+           // 'baseUrl' => '/yii', // adicionei conforme tutorial acima
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
