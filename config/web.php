@@ -14,7 +14,7 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'FVGA5Bza-zy1qTvYFLlEcN08P_jbTLnU',
              //http://www.yiiframework.com/wiki/755/how-to-hide-frontend-web-in-url-addresses-on-apache/
-           // 'baseUrl' => '/yii', // adicionei conforme tutorial acima
+            //'baseUrl' => '/yii2/web', // adicionei conforme tutorial acima
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -43,14 +43,17 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+              '<controller:\w+>/<id:\d+>' => '<controller>/view',
+              '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+              '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];
