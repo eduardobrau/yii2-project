@@ -5,6 +5,9 @@ namespace app\controllers;
 use Yii;
 use app\models\Anuncios;
 use app\models\AnunciosSearch;
+// Added class I'm go to using from down
+use app\models\CadastroAnuncioForm;
+use app\models\Cidades;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,15 +68,20 @@ class AnunciosController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Anuncios();
+//        $model = new Anuncios();
+//
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id, 'bairro_id' => $model->bairro_id, 'categoria_id' => $model->categoria_id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+      $form = new CadastroAnuncioForm();
+      $form->cidades = Cidades::find()->all();
+
+      if ($form->load(Yii::$app->request->post()) && $form->save()) {
+        return $this->redirect(['view', 'id' => $form->id, 'bairro_id' => $form->bairro_id, 'categoria_id' => $form->categoria_id]);
+      } else {
+        return $this->render('create', [
+          'model' => $form,
+        ]);
+      }
+
     }
 
     /**
