@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+//use yii\helpers\VarDumper;
+//echo '<pre>'; var_dump($model); echo '</pre>';
+//echo '<pre>'; VarDumper::dump($model); echo '</pre>';
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Anuncios */
