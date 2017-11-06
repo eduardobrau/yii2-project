@@ -22,7 +22,9 @@ class CadastroAnuncioForm extends Model
   public $site;
   public $bairro_id;
   public $categoria_id;
-
+  /*Campos necessários para atribuir valores que estão em outras
+  tabelas e carregar dados para alguns campos*/
+  public $cidades;
 
 
   public function rules(){
