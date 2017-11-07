@@ -125,4 +125,10 @@ class BairrosController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    public function actionListarBairros($cidade_id)
+    {
+      Yii::$app->response->format = Response::FORMAT_JSON;
+      return Bairros::find()->where(['id_cidade'=>$cidade_id])->select('id_bairro value, bairro text')->asArray()->all();
+    }
+
 }
