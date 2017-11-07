@@ -3,27 +3,27 @@ $(document).ready(function() {
 
 
         var cidadeID = $(this).val();
-        var dest = $(this).attr('drop-dest');
+        var dropChange = $(this).attr('data-drop-change');
         var url = $(this).attr('data-action-url');
 
         $.get(url, {cidade_id:cidadeID}, function(data){
 
             console.log(data);
 
-            $('#'+dest)
+            $('#'+dropChange)
                 .find('option')
                 .remove()
                 .end()
                 .append('<option value=""></option>');
 
             $.each(data, function (i, item) {
-                $('#'+dest).append($('<option>', {
+                $('#'+dropChange).append($('<option>', {
                     value: item.value,
                     text : item.text
                 }));
             });
 
-            //$('#'+dest).selectpicker('refresh');
+            //$('#'+dropChange).selectpicker('refresh');
 
         });
 

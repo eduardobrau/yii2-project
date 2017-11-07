@@ -39,13 +39,13 @@ use app\models\Cidades;
           'prompt'=>'Selecione uma Cidade',
           'id' => 'selectCity',
           'class'=>'form-control',
-          'drop-dest'=>'cadastroanuncioform-bairro_id',
+          'data-drop-change'=>'cadastroanuncioform-bairro_id',
           'data-action-url'=>Url::to(['bairros/listar-bairros'])
         ]
     )
     ?>
 
-    <?= $form->field($model, 'bairro_id')->textInput() ?>
+    <?= $form->field($model, 'bairro_id')->dropDownList([], ['prompt'=>'']) ?>
 
     <?= $form->field($model, 'categoria_id')->textInput() ?>
 
