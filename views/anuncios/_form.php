@@ -37,9 +37,10 @@ use app\models\Cidades;
         ),
         [
           'prompt'=>'Selecione uma Cidade',
-          'class'=>'drop-nested form-control',
+          'id' => 'selectCity',
+          'class'=>'form-control',
           'drop-dest'=>'cadastroanuncioform-bairro_id',
-          'drop-url'=>Url::to(['anuncios/bairros'])
+          'data-action-url'=>Url::to(['anuncios/bairros'])
         ]
     )
     ?>
