@@ -7,6 +7,7 @@ use app\models\Anuncios;
 use app\models\AnunciosSearch;
 // Added class I'm go to using from down
 use app\models\CadastroAnuncioForm;
+use app\models\Cidades;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -71,7 +72,8 @@ class AnunciosController extends Controller
 //
 
       $form = new CadastroAnuncioForm();
-//      $form->cidades = Cidades::find()->all();
+      // Carregar todas as cidades para atribuir a propriedade $id_cidade no _form
+      $form->cidade_id = Cidades::find()->all();
 
       if ($form->load(Yii::$app->request->post()) && $form->save()) {
         return $this->redirect(['view', 'id' => $form->id, 'bairro_id' => $form->bairro_id, 'categoria_id' => $form->categoria_id]);

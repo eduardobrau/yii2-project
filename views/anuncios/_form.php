@@ -31,7 +31,7 @@ use app\models\Cidades;
 
     <?= $form->field($model, 'cidade_id')->dropDownList(
         \yii\helpers\ArrayHelper::map(
-          Cidades::find()->all(),
+          /*Cidades::find()->all()*/$model->cidade_id,
           'id',
           'cidade'
         ),
