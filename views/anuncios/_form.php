@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
+use app\models\Cidades;
 //use yii\helpers\VarDumper;
 //echo '<pre>'; var_dump($model); echo '</pre>';
 //echo '<pre>'; VarDumper::dump($model); echo '</pre>';
@@ -26,6 +28,21 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'endereco')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'site')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'cidade_id')->dropDownList(
+        \yii\helpers\ArrayHelper::map(
+          Cidades::find()->all(),
+          'id',
+          'cidade'
+        ),
+        [
+          'prompt'=>'Selecione uma Cidade',
+          'class'=>'drop-nested form-control',
+          'drop-dest'=>'cadastroanuncioform-bairro_id',
+          'drop-url'=>Url::to(['anuncios/bairros'])
+        ]
+    )
+    ?>
 
     <?= $form->field($model, 'bairro_id')->textInput() ?>
 
