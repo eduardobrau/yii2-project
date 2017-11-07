@@ -40,7 +40,7 @@ use app\models\Cidades;
           'id' => 'selectCity',
           'class'=>'form-control',
           'drop-dest'=>'cadastroanuncioform-bairro_id',
-          'data-action-url'=>Url::to(['anuncios/bairros'])
+          'data-action-url'=>Url::to(['bairros/listar-bairros'])
         ]
     )
     ?>
