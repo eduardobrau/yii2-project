@@ -130,7 +130,7 @@ class BairrosController extends Controller
     public function actionListarBairros($cidade_id)
     {
       Yii::$app->response->format = Response::FORMAT_JSON;
-      return Bairros::find()->where(['id_cidade'=>$cidade_id])->select('id_bairro value, bairro text')->asArray()->all();
+      return Bairros::find()->where(['cidade_id'=>$cidade_id])->select('id value, bairro text')->asArray()->all();
     }
 
 }

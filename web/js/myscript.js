@@ -6,7 +6,7 @@ $(document).ready(function() {
         var dest = $(this).attr('drop-dest');
         var url = $(this).attr('data-action-url');
 
-        $.get(url, {id:cidadeID}, function(data){
+        $.get(url, {cidade_id:cidadeID}, function(data){
 
             console.log(data);
 
