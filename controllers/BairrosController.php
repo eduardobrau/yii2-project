@@ -8,6 +8,8 @@ use app\models\BairrosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+// Adicionado devido usar retorno em Json
+use yii\web\Response;
 
 /**
  * BairrosController implements the CRUD actions for Bairros model.
