@@ -2,11 +2,11 @@ $(document).ready(function() {
     $('select#selectCity').on('change', function(e){
 
 
-        var id = $(this).val();
+        var cidadeID = $(this).val();
         var dest = $(this).attr('drop-dest');
         var url = $(this).attr('data-action-url');
 
-        $.get(url, {id:id}, function(data){
+        $.get(url, {id:cidadeID}, function(data){
 
             console.log(data);
 
