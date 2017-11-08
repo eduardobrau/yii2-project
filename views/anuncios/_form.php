@@ -47,7 +47,16 @@ use app\models\Cidades;
 
     <?= $form->field($model, 'bairro_id')->dropDownList([], ['prompt'=>'']) ?>
 
-    <?= $form->field($model, 'categoria_id')->textInput() ?>
+    <?= $form->field($model, 'categoria_id')->dropDownList(
+            \yii\helpers\ArrayHelper::map(
+                    $model->categoria_id,
+                    'id',
+                    'categoria'
+            ),
+            [
+                    'prompt'=>'Selecione uma categoria'
+            ]
+    ) ?>
 
     <div class="form-group">
         <?php /* Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) */?>
