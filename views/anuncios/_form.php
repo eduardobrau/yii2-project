@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use app\models\Cidades;
 //use yii\helpers\VarDumper;
-//echo '<pre>'; var_dump($model); echo '</pre>';
+//echo '<pre>'; print_r($model); echo '</pre>';
 //echo '<pre>'; VarDumper::dump($model); echo '</pre>';
 
 /* @var $this yii\web\View */
@@ -61,7 +61,20 @@ use app\models\Cidades;
     <div class="form-group">
         <?php /* Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) */?>
     </div>
+    <fieldset class="form-group">
+        <legend>Redes Sociais</legend>
+    <?php foreach ($model['redesSociaisID'] as $index => $redeSocial){ ?>
+        <div class="form-group form-inline">
+            <label for="exampleInputName2"><?= ++$index.'.'.$redeSocial->rede_social?></label>
+            <!-- type, input name, input value, options -->
+            <?= Html::input('text', 'AnunciosRedesSociais['.$index.'][url]', '', ['class' => 'form-control'])?>
+            <?= Html::input('hidden', 'AnunciosRedesSociais['.$index.'][id]', $redeSocial->id)?>
+        </div>
+    <?php } ?>
+    </fieldset>
 
-    <?php ActiveForm::end(); ?>
+    <?= Html::submitButton('Salvar', ['class' => 'btn btn-default']) ?>
+
+  <?php ActiveForm::end(); ?>
 
 </div>

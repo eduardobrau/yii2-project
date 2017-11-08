@@ -9,6 +9,7 @@ use app\models\AnunciosSearch;
 use app\models\CadastroAnuncioForm;
 use app\models\Cidades;
 use app\models\Categorias;
+use app\models\RedesSociais;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -76,8 +77,11 @@ class AnunciosController extends Controller
       // Carregar todas as cidades para atribuir a propriedade $id_cidade no _form
       $form->cidade_id = Cidades::find()->all();
       $form->categoria_id = Categorias::find()->all();
+      $form->redesSociaisID = RedesSociais::find()->all();
 
-      if ($form->load(Yii::$app->request->post()) && $form->save()) {
+      if ( $form->load(Yii::$app->request->post()) ) {
+        echo '<pre>'; var_dump(Yii::$app->request->post()); echo '</pre>';
+        exit();
         return $this->redirect(['view', 'id' => $form->id, 'bairro_id' => $form->bairro_id, 'categoria_id' => $form->categoria_id]);
       } else {
         return $this->render('create', [

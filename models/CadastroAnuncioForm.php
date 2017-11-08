@@ -25,6 +25,7 @@ class CadastroAnuncioForm extends Model
   /*Campos necessários para atribuir valores que estão em outras
   tabelas e carregar dados para alguns campos*/
   public $cidade_id;
+  public $redesSociaisID;
 
 
   public function rules(){
