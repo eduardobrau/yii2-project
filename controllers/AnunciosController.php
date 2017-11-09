@@ -79,8 +79,11 @@ class AnunciosController extends Controller
       $form->categoria_id = Categorias::find()->all();
       $form->redesSociaisID = RedesSociais::find()->all();
 
-      if ( $form->load(Yii::$app->request->post()) ) {
-        echo '<pre>'; var_dump(Yii::$app->request->post()); echo '</pre>';
+      if ( Yii::$app->request->isPost && $form->load(Yii::$app->request->post())  ) {
+        $request = Yii::$app->request;
+        // $headers is an object of yii\web\HeaderCollection
+        //$headers = $request->headers;
+        echo '<pre>'; var_dump($request->post('AnunciosRedesSociais')[1]['url']); echo '</pre>';
         exit();
         return $this->redirect(['view', 'id' => $form->id, 'bairro_id' => $form->bairro_id, 'categoria_id' => $form->categoria_id]);
       } else {
