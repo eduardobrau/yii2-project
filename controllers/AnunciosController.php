@@ -83,9 +83,26 @@ class AnunciosController extends Controller
         $request = Yii::$app->request;
         // $headers is an object of yii\web\HeaderCollection
         //$headers = $request->headers;
-        echo '<pre>'; var_dump($request->post('AnunciosRedesSociais')[1]['url']); echo '</pre>';
-        exit();
-        return $this->redirect(['view', 'id' => $form->id, 'bairro_id' => $form->bairro_id, 'categoria_id' => $form->categoria_id]);
+        //echo '<pre>'; var_dump($form); echo '</pre>';
+        //exit();
+        $model = new Anuncios();
+        $model->titulo = $form->titulo;
+        $model->slogan = $form->slogan;
+        $model->texto = $form->texto;
+        $model->telefone = $form->telefone;
+        $model->endereco = $form->endereco;
+        $model->site = $form->site;
+        $model->bairro_id = $form->bairro_id;
+        $model->categoria_id = $form->categoria_id;
+
+        $model->save();
+
+        return $this->redirect([
+          'view',
+          'id' => $model->id,
+          'bairro_id' => $model->bairro_id,
+          'categoria_id' => $model->categoria_id
+        ]);
       } else {
         return $this->render('create', [
           'model' => $form,
