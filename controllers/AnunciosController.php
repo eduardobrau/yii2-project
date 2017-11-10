@@ -85,17 +85,28 @@ class AnunciosController extends Controller
         //$headers = $request->headers;
         //echo '<pre>'; var_dump($form); echo '</pre>';
         //exit();
-        $model = new Anuncios();
-        $model->titulo = $form->titulo;
-        $model->slogan = $form->slogan;
-        $model->texto = $form->texto;
-        $model->telefone = $form->telefone;
-        $model->endereco = $form->endereco;
-        $model->site = $form->site;
-        $model->bairro_id = $form->bairro_id;
-        $model->categoria_id = $form->categoria_id;
 
-        $model->save();
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+          $model = new Anuncios();
+          $model->titulo = $form->titulo;
+          $model->slogan = $form->slogan;
+          $model->texto = $form->texto;
+          $model->telefone = $form->telefone;
+          $model->endereco = $form->endereco;
+          $model->site = $form->site;
+          $model->bairro_id = $form->bairro_id;
+          $model->categoria_id = $form->categoria_id;
+
+          $model->save();
+
+          $transaction->commit();
+
+        }catch(Exception $e){
+          $transaction->rollBack();
+          throw $e;
+        }
 
         return $this->redirect([
           'view',
@@ -103,6 +114,7 @@ class AnunciosController extends Controller
           'bairro_id' => $model->bairro_id,
           'categoria_id' => $model->categoria_id
         ]);
+
       } else {
         return $this->render('create', [
           'model' => $form,
