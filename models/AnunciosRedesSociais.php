@@ -31,8 +31,8 @@ class AnunciosRedesSociais extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'anuncio_id', 'rede_social_id'], 'required'],
-            [['id', 'anuncio_id', 'rede_social_id'], 'integer'],
+            [['anuncio_id', 'rede_social_id'], 'required'],
+            [['anuncio_id', 'rede_social_id'], 'integer'],
             [['url'], 'string', 'max' => 150],
             [['anuncio_id'], 'exist', 'skipOnError' => true, 'targetClass' => Anuncios::className(), 'targetAttribute' => ['anuncio_id' => 'id']],
             [['rede_social_id'], 'exist', 'skipOnError' => true, 'targetClass' => RedesSociais::className(), 'targetAttribute' => ['rede_social_id' => 'id']],

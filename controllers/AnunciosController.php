@@ -10,6 +10,7 @@ use app\models\CadastroAnuncioForm;
 use app\models\Cidades;
 use app\models\Categorias;
 use app\models\RedesSociais;
+use app\models\AnunciosRedesSociais;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -101,6 +102,23 @@ class AnunciosController extends Controller
 
           $model->save();
 
+          $redesSociais = $request->post('AnunciosRedesSociais', array());
+
+          foreach ($redesSociais as $redeSocial) {
+            // Setando os atributos do model AnunciosRedesSociais
+            $anunciosRedesSociais = new AnunciosRedesSociais();
+            // Atributo anuncio_id pertence a tabela Anuncios relação N X N
+            $anunciosRedesSociais->anuncio_id = $model->id;
+            $anunciosRedesSociais->rede_social_id = $redeSocial['id'];
+            $anunciosRedesSociais->url = $redeSocial['url'];
+
+            (!$anunciosRedesSociais->save()) ? $transaction->rollBack() : '';
+
+          }
+          /*echo '<pre>';
+            var_dump($anunciosRedesSociais);
+          echo '</pre>';
+          exit();*/
           $transaction->commit();
 
         }catch(Exception $e){
