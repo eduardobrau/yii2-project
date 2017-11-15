@@ -27,28 +27,49 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' =>
         [
             ['class' => 'yii\grid\SerialColumn'],
-            'id',
-            'titulo',
-            'slogan',
-            'texto:ntext',
-            //StringHelper::truncate('texto:ntext', 20),
+            //'id',
+            [
+                'attribute' => 'id',
+                'contentOptions'    => ['style' => 'width:50px;']
+            ],
+            //'titulo',
+            [
+                'attribute'  => 'titulo',
+                'value'    => function($model){
+                    return StringHelper::truncateWords($model->texto, 12);
+                }
+
+            ],
+            //'texto:ntext',
             'telefone',
+            'endereco',
+            'site',
             ['class' => 'yii\grid\ActionColumn',
                 'template'=>'{view} {update} {delete}',
+                'contentOptions' => ['style' => 'width:100px;'],
                 'buttons'=>
                 [
                     'view' => function ($url, $model)
                     {
                         //echo '<pre>'; var_dump($model); echo '</pre>';
-                        return Html::a('<button class="btn btn-xs glyphicon glyphicon-eye-open"></button>', "/anuncios/{$model->id}?bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}");
+                        return Html::a('<button class="btn btn-xs btn-success glyphicon glyphicon-eye-open"></button>', "/anuncios/{$model->id}?bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}");
                     },
                     'update' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-xs glyphicon glyphicon-pencil"></button>', "/anuncios/{$model->id}?bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}");
+                        return Html::a('<button class="btn btn-xs btn-warning glyphicon glyphicon-pencil"></button>', "/anuncios/{$model->id}?bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}");
                     },
                     'delete' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-xs glyphicon glyphicon-trash"></button>', "/anuncios/delete/{$model->id}?bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}");
+                        return Html::a(
+                            '<button class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button>',
+                             "/anuncios/delete/{$model->id}?bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}",
+                            [
+                                'title'         => 'Excluir',
+                                'data-pjax'     => '0',
+                                'data-confirm'  => 'Confirma a exclusão deste item?',
+                                'data-method'   => 'post',
+                            ]
+                        );
                     }
                 ]
             ],
