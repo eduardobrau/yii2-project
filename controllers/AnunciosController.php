@@ -3,6 +3,9 @@
 namespace app\controllers;
 
 use Yii;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 use app\models\Anuncios;
 use app\models\AnunciosSearch;
 // Added class I'm go to using from down
@@ -11,9 +14,8 @@ use app\models\Cidades;
 use app\models\Categorias;
 use app\models\RedesSociais;
 use app\models\AnunciosRedesSociais;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\data\Pagination;
+use yii\data\ActiveDataProvider;
 
 /**
  * AnunciosController implements the CRUD actions for Anuncios model.
@@ -41,13 +43,69 @@ class AnunciosController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new AnunciosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+      $searchModel = new AnunciosSearch();
+      $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+      return $this->render('index', [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+      ]);
+
+    }
+
+    public function actionMostrar(){
+
+      $query = Anuncios::find();
+
+      $dataProvider = new ActiveDataProvider([
+
+        'query'         => $query,
+        'pagination'    => [
+          'pageSize'    => 1,
+        ],
+        'sort'          => [
+
+          'defaultOrder'=> [
+            'titulo'    => SORT_ASC,
+          ]
+
+        ]
+
+      ]);
+
+      return $this->render('mostrar', [
+        'dataProvider' => $dataProvider
+      ]);
+
+    }
+
+    public function actionListar(){
+      //$anuncios = new Anuncios();
+      $query = Anuncios::find();
+      // ->joinWith('anunciosRedesSociais')
+      // //->asArray()
+      // ->all();
+
+      //echo '<pre>'; print_r($query); echo '</pre>';
+
+      $pagination = new Pagination([
+        'defaultPageSize' => 1,
+        'totalCount' => $query->count(),
+      ]);
+      //print_r($pagination->totalCount);
+      // limit the query using the pagination and retrieve the articles
+      $anuncios = $query
+        ->with('anunciosRedesSociais')
+        ->asArray()
+        ->offset($pagination->offset)
+        ->limit($pagination->limit)
+        ->all();
+
+      return $this->render('listar',[
+        'anuncios'    => $anuncios,
+        'pagination'  => $pagination,
+      ]);
+
     }
 
     /**
