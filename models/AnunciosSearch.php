@@ -47,6 +47,9 @@ class AnunciosSearch extends Anuncios
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination'    => [
+                'pageSize'    => 1,
+            ],
         ]);
 
         $this->load($params);

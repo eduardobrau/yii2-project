@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'  => 'titulo',
                 'value'    => function($model){
-                    return StringHelper::truncateWords($model->texto, 12);
+                    return StringHelper::truncateWords($model->titulo, 12);
                 }
 
             ],
