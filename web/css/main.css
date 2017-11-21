@@ -1,0 +1,26 @@
+#adSearch{
+	padding-top: 60px;
+}
+#topHeader{
+	padding: 10px 0;
+}
+.adSearch{
+	padding: 30px 0;
+	text-align: center;
+}
+.form-group.form-inline{
+	display: inline-block;
+	margin-right: 10px;
+}
+.panel-heading h1,h2,h3{
+	margin:5px 0;
+}
+fieldset{
+	border: 1px solid #ccc;
+	padding: .35em .625em .75em;
+	box-shadow: initial;
+}
+fieldset > legend{
+	border-bottom: none;
+	width: initial;
+}
