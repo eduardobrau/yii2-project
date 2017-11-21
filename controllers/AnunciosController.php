@@ -14,6 +14,8 @@ use app\models\Cidades;
 use app\models\Categorias;
 use app\models\RedesSociais;
 use app\models\AnunciosRedesSociais;
+use app\models\Tags;
+use app\models\AnunciosTags;
 use yii\data\Pagination;
 use yii\data\ActiveDataProvider;
 
@@ -137,13 +139,15 @@ class AnunciosController extends Controller
       $form->cidade_id = Cidades::find()->all();
       $form->categoria_id = Categorias::find()->all();
       $form->redesSociaisID = RedesSociais::find()->all();
-
+      $form->tagsID = Tags::find()->all();
       if ( Yii::$app->request->isPost && $form->load(Yii::$app->request->post())  ) {
         $request = Yii::$app->request;
         // $headers is an object of yii\web\HeaderCollection
         //$headers = $request->headers;
-        //echo '<pre>'; var_dump($form); echo '</pre>';
-        //exit();
+        //$tagsIds = $request->post('AnunciosTags');
+        //$tagsIds = $tagsIds['tag_id'];
+        // echo '<pre>'; print_r( $request->post() ) ; echo '</pre>';
+        // exit();
 
         $transaction = Yii::$app->db->beginTransaction();
 
@@ -159,6 +163,19 @@ class AnunciosController extends Controller
           $model->categoria_id = $form->categoria_id;
 
           $model->save();
+
+          $tags = $request->post('AnunciosTags', array());
+
+          foreach($tags as $tag_id => $arrai){
+
+            foreach($arrai as $tag){
+              $anuncTags = new AnunciosTags();
+              $anuncTags->anuncio_id = $model->id;
+              $anuncTags->tag_id = $tag;
+              ( !$anuncTags->save() ? $transaction->rollBack() : '' );
+            }
+            
+          }
 
           $redesSociais = $request->post('AnunciosRedesSociais', array());
 

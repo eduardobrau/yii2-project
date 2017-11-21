@@ -3,9 +3,10 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 use app\models\Cidades;
 //use yii\helpers\VarDumper;
-//echo '<pre>'; print_r($model); echo '</pre>';
+//echo '<pre>'; print_r($model->tagsID); echo '</pre>';
 //echo '<pre>'; VarDumper::dump($model); echo '</pre>';
 
 /* @var $this yii\web\View */
@@ -23,14 +24,34 @@ use app\models\Cidades;
 
     <?= $form->field($model, 'texto')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'telefone')->textInput(['maxlength' => true]) ?>
+    <div class="form-group">
+        <label for="sel1">Selecione até 5 Palavras Chaves com CTRL + click:</label>
+        <select name="AnunciosTags['tag_id'][]" multiple="multiple" class="form-control">
+            <?php foreach ($model->tagsID as $key => $value) {
+                echo '<option value="'.$value->id.'">' .$value->tag. '</option>';
+            } ?>
+        </select>
+    </div>
 
-    <?= $form->field($model, 'endereco')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'categoria_id')->dropDownList(
+            \yii\helpers\ArrayHelper::map(
+                    $model->categoria_id,
+                    'id',
+                    'categoria'
+            ),
+            [
+                    'prompt'=>'Selecione uma categoria'
+            ]
+    ) ?>
+
+    <?= $form->field($model, 'telefone')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'site')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'endereco')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'cidade_id')->dropDownList(
-        \yii\helpers\ArrayHelper::map(
+        ArrayHelper::map(
           /*Cidades::find()->all()*/$model->cidade_id,
           'id',
           'cidade'
@@ -46,17 +67,6 @@ use app\models\Cidades;
     ?>
 
     <?= $form->field($model, 'bairro_id')->dropDownList([], ['prompt'=>'']) ?>
-
-    <?= $form->field($model, 'categoria_id')->dropDownList(
-            \yii\helpers\ArrayHelper::map(
-                    $model->categoria_id,
-                    'id',
-                    'categoria'
-            ),
-            [
-                    'prompt'=>'Selecione uma categoria'
-            ]
-    ) ?>
 
     <div class="form-group">
         <?php /* Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) */?>
