@@ -42,7 +42,25 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
 
     ]) ?>
+    <table class="table table-striped table-bordered detail-view" style="margin-top: -21px;">
+    <tbody>
+        <tr>
+        <th style="width:89px;">Tags</th>
+        <td>
+    <?php //echo '<pre>'; print_r($model->anunciosTags); '</pre>'; 
 
+        foreach($model->anunciosTags as $index => $tag){
+            $tags[] = $tag->tag_id;
+        }
+
+        $tag = implode(', ', $tags);
+        
+        echo $tag;
+    ?>
+        </td>
+        </tr>
+    </tbody>
+    </table>
     <table class="table table-striped table-bordered detail-view" style="margin-top: -21px;">
     <tbody>
     <?php //   '<pre>'; var_dump($model->anunciosRedesSociais); '</pre>';
