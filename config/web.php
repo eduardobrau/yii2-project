@@ -53,6 +53,10 @@ $config = [
               '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],
+        // Registrando meu primeiro Component
+        'myComponent' => [
+            'class' => 'app\classes\components\MyComponent'
+        ],
 
     ],
     'params' => $params,
