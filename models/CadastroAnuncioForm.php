@@ -27,6 +27,7 @@ class CadastroAnuncioForm extends Model
   public $cidade_id;
   public $redesSociaisID;
   public $tagsID;
+  //public $created_at;
 
 
   public function rules(){
@@ -36,6 +37,7 @@ class CadastroAnuncioForm extends Model
       [['texto'], 'string'],
       [['site'], 'string', 'max'=>45],
       [['bairro_id', 'categoria_id'], 'integer'],
+      //['created_at', 'default', 'value' => date('Y-m-d H:i:s')],
     ];
   }
 

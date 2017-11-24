@@ -47,6 +47,7 @@ class Anuncios extends \yii\db\ActiveRecord
             [['endereco'], 'string', 'max' => 150],
             [['bairro_id'], 'exist', 'skipOnError' => true, 'targetClass' => Bairros::className(), 'targetAttribute' => ['bairro_id' => 'id']],
             [['categoria_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categorias::className(), 'targetAttribute' => ['categoria_id' => 'id']],
+            ['created_at', 'default', 'value' => date('Y-m-d H:i:s')],
         ];
     }
 
