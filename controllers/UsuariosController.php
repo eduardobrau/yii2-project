@@ -8,6 +8,7 @@ use app\models\DBUsuariosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\User;
 
 /**
  * DBUsuariosController implements the CRUD actions for DBUsuarios model.
@@ -64,8 +65,12 @@ class UsuariosController extends Controller
     public function actionCreate()
     {
         $model = new DBUsuarios();
+        $user = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            //echo '<pre>'; print_r( Yii::$app->request->post() ) ; echo '</pre>';die;
+            $model->password = $user->setPassword($model->password);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
