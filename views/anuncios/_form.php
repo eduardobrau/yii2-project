@@ -18,6 +18,8 @@ use app\models\Cidades;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= Html::input('hidden', 'CadastroAnuncioForm[usuario_id]', Yii::$app->user->id) ?>
+
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'slogan')->textInput(['maxlength' => true]) ?>

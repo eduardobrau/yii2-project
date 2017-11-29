@@ -16,9 +16,11 @@ use Yii;
  * @property string $site
  * @property integer $bairro_id
  * @property integer $categoria_id
+ * @property integer $usuario_id
  *
  * @property Bairros $bairro
  * @property Categorias $categoria
+ * @property dBUsuarios $dBUsuarios
  * @property AnunciosRedesSociais[] $anunciosRedesSociais
  * @property AnunciosTags[] $anunciosTags
  */
@@ -83,6 +85,15 @@ class Anuncios extends \yii\db\ActiveRecord
     public function getCategoria()
     {
         return $this->hasOne(Categorias::className(), ['id' => 'categoria_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     * Adicionado depois da geração do gii
+     */
+    public function getdBUsuario()
+    {
+        return $this->hasOne(dBUsuarios::className(), ['id' => 'usuario_id']);
     }
 
     /**

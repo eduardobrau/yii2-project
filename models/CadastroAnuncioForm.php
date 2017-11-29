@@ -22,6 +22,7 @@ class CadastroAnuncioForm extends Model
   public $site;
   public $bairro_id;
   public $categoria_id;
+  public $usuario_id;
   /*Campos necessários para atribuir valores que estão em outras
   tabelas e carregar dados para alguns campos*/
   public $cidade_id;
@@ -32,11 +33,11 @@ class CadastroAnuncioForm extends Model
 
   public function rules(){
     return [
-      [['titulo', 'texto', 'telefone', 'endereco', 'bairro_id', 'categoria_id', 'cidade_id'], 'required'],
+      [['titulo', 'texto', 'telefone', 'endereco', 'bairro_id', 'categoria_id', 'cidade_id', 'usuario_id'], 'required'],
       [['titulo', 'slogan'], 'string', 'max'=>200],
       [['texto'], 'string'],
       [['site'], 'string', 'max'=>45],
-      [['bairro_id', 'categoria_id'], 'integer'],
+      [['bairro_id', 'categoria_id', 'usuario_id'], 'integer'],
       //['created_at', 'default', 'value' => date('Y-m-d H:i:s')],
     ];
   }

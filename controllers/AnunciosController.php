@@ -41,10 +41,10 @@ class AnunciosController extends Controller
         'only' => ['create', 'update', 'delete'],
         'rules' => [
           // deny all POST requests
-          [
-            'allow' => false,
-            'verbs' => ['POST']
-          ],
+          // [
+          //   'allow' => false,
+          //   'verbs' => ['POST']
+          // ],
           // allow authenticated users
           [
             'allow' => true,
@@ -162,8 +162,7 @@ class AnunciosController extends Controller
       //$headers = $request->headers;
       //$tagsIds = $request->post('AnunciosTags');
       //$tagsIds = $tagsIds['tag_id'];
-      // echo '<pre>'; print_r( $request->post() ) ; echo '</pre>';
-      // exit();
+      //echo '<pre>'; print_r( $request->post() ) ; echo '</pre>';die;
 
       $transaction = Yii::$app->db->beginTransaction();
 
@@ -177,6 +176,7 @@ class AnunciosController extends Controller
         $model->site = $form->site;
         $model->bairro_id = $form->bairro_id;
         $model->categoria_id = $form->categoria_id;
+        $model->usuario_id = $form->usuario_id;
 
         $model->save();
 
