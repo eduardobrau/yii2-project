@@ -52,17 +52,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     'view' => function ($url, $model)
                     {
                         //echo '<pre>'; var_dump($model); echo '</pre>';
-                        return Html::a('<button class="btn btn-xs btn-success glyphicon glyphicon-eye-open"></button>', "/anuncios/{$model->id}?bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}");
+                        return Html::a('<button class="btn btn-xs btn-success glyphicon glyphicon-eye-open"></button>', "/anuncios/view?id={$model->id}&bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}");
                     },
                     'update' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-xs btn-warning glyphicon glyphicon-pencil"></button>', "/anuncios/{$model->id}?bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}");
+                        return Html::a('<button class="btn btn-xs btn-warning glyphicon glyphicon-pencil"></button>', "/anuncios/update?id={$model->id}&bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}");
                     },
                     'delete' => function ($url, $model)
                     {
                         return Html::a(
                             '<button class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button>',
-                             "/anuncios/delete/{$model->id}?bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}",
+                             "/anuncios/delete?id={$model->id}&bairro_id={$model->bairro_id}&categoria_id={$model->categoria_id}",
                             [
                                 'title'         => 'Excluir',
                                 'data-pjax'     => '0',
