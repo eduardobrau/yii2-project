@@ -13,9 +13,9 @@ use Yii;
  * @property string $auth_key
  * @property string $access_token
  * @property string $email
- *
  * @property Anuncios[] $anuncios
  * @property Perfil[] $perfils
+ * @property integer $admin 
  */
 class DBUsuarios extends \yii\db\ActiveRecord
 {
