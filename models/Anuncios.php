@@ -111,4 +111,14 @@ class Anuncios extends \yii\db\ActiveRecord
     {
         return $this->hasMany(AnunciosTags::className(), ['anuncio_id' => 'id']);
     }
+
+    public function getTags()
+    {
+        foreach ($this->anunciosTags as $anuncioTag){
+            $tags[]= $anuncioTag->tag->tag;
+        }
+        $tag = implode(', ', $tags);
+        
+        return $tag;
+    }
 }
