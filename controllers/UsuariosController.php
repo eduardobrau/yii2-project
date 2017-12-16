@@ -30,22 +30,7 @@ class UsuariosController extends Controller
         ];
     }
 
-    /**
-     * Lists all DBUsuarios models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new DBUsuariosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
+        /**
      * Displays a single DBUsuarios model.
      * @param integer $id
      * @return mixed
