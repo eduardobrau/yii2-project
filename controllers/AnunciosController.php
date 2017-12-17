@@ -16,6 +16,8 @@ use app\models\RedesSociais;
 use app\models\AnunciosRedesSociais;
 use app\models\Tags;
 use app\models\AnunciosTags;
+use app\models\form\UploadForm;
+use yii\web\UploadedFile;
 use yii\data\Pagination;
 use yii\data\ActiveDataProvider;
 
@@ -162,7 +164,12 @@ class AnunciosController extends Controller
       //$headers = $request->headers;
       //$tagsIds = $request->post('AnunciosTags');
       //$tagsIds = $tagsIds['tag_id'];
-      //echo '<pre>'; print_r( $request->post() ) ; echo '</pre>';die;
+      //echo '<pre>'; print_r( $request->post() ) ; echo '</pre>';
+      $uploadForm = new UploadForm();
+      //echo '<pre>'; print_r( $uploadForm ) ; echo '</pre>';
+      $uploadForm->imagens = UploadedFile::getInstances($form, 'imagens');
+      $uploadForm->upload();
+      die;
 
       $transaction = Yii::$app->db->beginTransaction();
 
@@ -206,6 +213,7 @@ class AnunciosController extends Controller
           (!$anunciosRedesSociais->save()) ? $transaction->rollBack() : '';
 
         }
+        
         /*echo '<pre>';
           var_dump($anunciosRedesSociais);
         echo '</pre>';
