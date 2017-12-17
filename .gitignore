@@ -29,5 +29,8 @@ phpunit.phar
 tests/_output/*
 tests/_support/_generated
 
+/web/uploads/*
+.gitignore
+
 # arquivo com comandos git
 git.conf
