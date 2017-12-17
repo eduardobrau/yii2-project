@@ -29,6 +29,7 @@ class CadastroAnuncioForm extends Model
   public $redesSociaisID;
   public $tagsID;
   //public $created_at;
+  public $imagens;
 
 
   public function rules(){
@@ -39,6 +40,7 @@ class CadastroAnuncioForm extends Model
       [['site'], 'string', 'max'=>45],
       [['bairro_id', 'categoria_id', 'usuario_id'], 'integer'],
       //['created_at', 'default', 'value' => date('Y-m-d H:i:s')],
+      [['imagens'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 3],
     ];
   }
 
