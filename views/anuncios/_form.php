@@ -16,7 +16,7 @@ use app\models\Cidades;
 
 <div class="anuncios-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= Html::input('hidden', 'CadastroAnuncioForm[usuario_id]', Yii::$app->user->id) ?>
 
@@ -84,7 +84,10 @@ use app\models\Cidades;
         </div>
     <?php } ?>
     </fieldset>
-
+    <div class="form-group">
+        <?= $form->field($model, 'imagens[]')->fileInput(['multiple' => true, 'accept' => 'image/*', 'class' => 'form-control']) ?>
+        <?php // Html::fileInput('imagens[]', null, ['multiple' => true, 'accept' => 'image/*', 'class' => 'form-control'])?>
+    </div>
     <?= Html::submitButton('Salvar', ['class' => 'btn btn-default']) ?>
 
   <?php ActiveForm::end(); ?>
