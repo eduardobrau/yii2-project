@@ -28,7 +28,7 @@ use app\models\Cidades;
 
     <div class="form-group">
         <label for="sel1">Selecione até 5 Palavras Chaves com CTRL + click:</label>
-        <select name="AnunciosTags['tag_id'][]" multiple="multiple" class="form-control">
+        <select name="AnunciosTags['tag_id'][]" multiple="multiple" id="AnunciosTags-tag_id" class="form-control">
             <?php foreach ($model->tagsID as $key => $value) {
                 echo '<option value="'.$value->id.'">' .$value->tag. '</option>';
             } ?>

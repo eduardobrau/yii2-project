@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    $('select#selectCity').on('change', function(e){
 
+    $('select#selectCity').on('change', function(e){
 
         var cidadeID = $(this).val();
         var dropChange = $(this).attr('data-drop-change');
@@ -28,4 +28,9 @@ $(document).ready(function() {
         });
 
     });
+    $('#cadastroanuncioform-bairro_id').select2({
+        placeholder: "Selecione um Bairro",
+        allowClear: true
+    }); 
+    $('#AnunciosTags-tag_id').select2();
 });
