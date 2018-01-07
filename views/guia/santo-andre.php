@@ -14,38 +14,46 @@ $this->params['breadcrumbs'][] = $this->title; ?>
     <?= MapaWidget::widget() ?>
   </div>
   <div class="col-md-8">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Empresas</h3>
-      </div>
-      <?php foreach ($anuncios as $anuncio) {?>
-        <div class="panel-body">
-          <div class="body-card">
-            <figure style="max-width:360px; max-height:200px;" class="thumbnail-card">
-              <img class="img-thumbnail" src="<?= Yii::getAlias('@web')?>/img/sem-imagem.jpeg">
-            </figure>
-            <div class="text-description">
-              <?= Html::encode(yii\helpers\StringHelper::truncate($anuncio['titulo'],60,'...')) ?>
-              <?= Html::encode(yii\helpers\StringHelper::truncate($anuncio['texto'],160,'...')) ?>
-            </div>
-            <hr>
-            <p>
-              <?= Html::a('Santo André', [ Yii::$app->controller->action->id ], ['class' => 'city-local'])?>
-              <?= Html::a("{$anuncio['bairro']['bairro']}", StringToUrl::convertOnUrl([ $anuncio['bairro']['bairro'] ]), ['class' => 'city-local'])?>
-            </p>
-            <hr>
-            <?= Html::a('Detalhes', [StringToUrl::convertOnUrl("guia-comercial/{$anuncio['bairro']['cidade']['cidade']}/{$anuncio['titulo']}/{$anuncio['id']}")], ['class' => 'btn btn-default']) ?>
-            <?= Html::a('Telefone', ['santo-andre/view', ['anuncio' => $anuncio['titulo'],'id' => $anuncio['id']]], ['class' => 'btn btn-default']) ?>
-          </div>
+    <?php if(!empty($anuncios[0])){ ?>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Empresas</h3>
         </div>
-      <?php }?>
+        <?php foreach ($anuncios as $anuncio) {?>
+          <div class="panel-body">
+            <div class="body-card">
+              <figure style="max-width:360px; max-height:200px;" class="thumbnail-card">
+                <img class="img-thumbnail" src="<?= Yii::getAlias('@web')?>/img/sem-imagem.jpeg">
+              </figure>
+              <div class="text-description">
+                <?= Html::encode(yii\helpers\StringHelper::truncate($anuncio['titulo'],60,'...')) ?>
+                <?= Html::encode(yii\helpers\StringHelper::truncate($anuncio['texto'],160,'...')) ?>
+              </div>
+              <hr>
+              <p>
+                <?= Html::a($anuncio['bairro']['cidade']['cidade'], [ Yii::$app->controller->action->id ], ['class' => 'city-local'])?>
+                <?= Html::a("{$anuncio['bairro']['bairro']}", StringToUrl::convertOnUrl([ $anuncio['bairro']['bairro'] ]), ['class' => 'city-local'])?>
+              </p>
+              <hr>
+              <?= Html::a('Detalhes', [StringToUrl::convertOnUrl("guia-comercial/{$anuncio['bairro']['cidade']['cidade']}/{$anuncio['titulo']}/{$anuncio['id']}")], ['class' => 'btn btn-default']) ?>
+              <?= Html::a('Telefone', ['santo-andre/view', ['anuncio' => $anuncio['titulo'],'id' => $anuncio['id']]], ['class' => 'btn btn-default']) ?>
+            </div>
+          </div>
+        <?php }?>
 
-      <div class="btn-view-all">
-        <?= Html::a('Ver todos', ['guia-comercial/santo-andre'], ['class' => 'btn btn-primary']) ?>
+        <div class="btn-view-all">
+          <?= Html::a('Ver todos', [StringToUrl::convertOnUrl("guia-comercial/{$anuncio['bairro']['cidade']['cidade']}")], ['class' => 'btn btn-primary']) ?>
+        </div>
+
       </div>
-
-    </div>
-
+    <?php
+    }else{
+      echo '
+      <div class="alert alert-danger">
+        <strong>Atenção!</strong> Ainda não há dados cadastrados.
+      </div>';
+    }
+    ?>
   </div>
 
   <div class="col-md-4">
