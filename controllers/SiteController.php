@@ -59,13 +59,13 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    /* public function actionIndex()
     {
         $myComponent = Yii::$app->myComponent;
         //$myComponent->printString('Meu primeiro Component');
         //die;
         return $this->render('index');
-    }
+    } */
 
     /**
      * Login action.
