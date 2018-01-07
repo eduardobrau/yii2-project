@@ -29,7 +29,7 @@ $this->title = 'My Yii Application';
           <!--<area shape="rect" coords="149,458,455,835" href="" target="">-->
           <area data="city-s-caetano" shape="poly" coords="79,8,96,17,106,13,106,20,105,23,
           108,29,104,36,102,46,99,50,95,47,90,51,,82,51,76,44,79,8"
-          href="/guia/sao-caetano" target=""> 
+          href="/guia/sao-caetano-do-sul" target=""> 
           <area data="city-s-andre" shape="poly" coords="107,14,116,20,
           127,20,143,30,159,29,156,41,163,50,156,52,150,58,150,61,
           159,65,165,78,156,93,155,103,161,105,165,111,170,112,175,118,
