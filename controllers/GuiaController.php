@@ -41,14 +41,14 @@ class GuiaController extends Controller{
     return $this->render('sao-bernardo-do-campo', $dados);
   }
 
-  public function actionSaoCaetano()
+  public function actionSaoCaetanoDoSul()
   {
     $model = new Anuncios();
     $model->model = $model;
     $cidade_id = 3;
     $dados = $model->getAnuncios($cidade_id);
 
-    return $this->render('sao-caetano', $dados);
+    return $this->render('sao-caetano-do-sul', $dados);
   }
 
   public function actionDiadema()
