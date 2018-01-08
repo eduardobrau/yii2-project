@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\Pagination;
 
 /**
  * This is the model class for table "anuncios".
@@ -21,6 +22,7 @@ use Yii;
  * @property Bairros $bairro
  * @property Categorias $categoria
  * @property dBUsuarios $dBUsuarios
+ * @property Uploads $Uploads
  * @property AnunciosRedesSociais[] $anunciosRedesSociais
  * @property AnunciosTags[] $anunciosTags
  */
@@ -29,6 +31,10 @@ class Anuncios extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $model;
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+
     public static function tableName()
     {
         return 'anuncios';
@@ -112,6 +118,14 @@ class Anuncios extends \yii\db\ActiveRecord
         return $this->hasMany(AnunciosTags::className(), ['anuncio_id' => 'id']);
     }
 
+    /**
+   * @return \yii\db\ActiveQuery
+   */
+    public function getUploads()
+    {
+        return $this->hasMany(Uploads::className(), ['anuncio_id' => 'id']);
+    }
+
     public function getTags()
     {
         foreach ($this->anunciosTags as $anuncioTag){
@@ -121,4 +135,39 @@ class Anuncios extends \yii\db\ActiveRecord
         
         return $tag;
     }
+
+    public function getAnuncios($cidade_id, $pagSize=NULL){
+        
+        $anuncios = $this->model::find()
+        ->joinWith(['bairro', 'bairro.cidade'])
+        ->where([
+            'cidades.id' => $cidade_id,
+            'anuncios.status' => self::STATUS_ACTIVE
+        ]);
+    
+        if($pagSize){
+            $pagination = new Pagination([
+                'defaultPageSize' => $pagSize,
+                'totalCount' => $anuncios->count(),
+            ]);
+        }else
+            $pagination = NULL;
+
+        $query = $anuncios
+        /* ->joinWith(['bairro','bairro.cidade'])
+        ->andWhere(['cidades.id' => $cidade_id]) */
+        ->asArray();
+        if($pagSize){
+            $query = $query
+            ->offset($pagination->offset)
+            ->limit($pagination->limit);
+        }
+        $query = $query
+        ->all();
+
+        $anuncios = array('anuncios' => $query, 'pagination'  => $pagination,);
+
+        return $anuncios;
+    }
+
 }
