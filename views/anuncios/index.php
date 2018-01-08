@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'telefone',
             'endereco',
             'site',
+            'status',
             ['class' => 'yii\grid\ActionColumn',
                 'template'=>'{view} {update} {delete}',
                 'contentOptions' => ['style' => 'width:100px;'],
