@@ -31,6 +31,18 @@ $(document).ready(function() {
     $('#cadastroanuncioform-bairro_id').select2({
         placeholder: "Selecione um Bairro",
         allowClear: true
+    });
+    $('.selectBairro').select2({
+        placeholder: "Selecione um Bairro",
+        allowClear: true
     }); 
     $('#AnunciosTags-tag_id').select2();
+    $('#selectTag').select2({
+        placeholder: "Selecione uma Tag",
+        allowClear: true
+    });
+    $('#selectCategory').select2({
+        placeholder: "Selecione uma Tag",
+        allowClear: true
+    });
 });
