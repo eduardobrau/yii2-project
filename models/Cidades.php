@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\SluggableBehavior;
 
 /**
  * This is the model class for table "cidades".
@@ -20,6 +21,17 @@ class Cidades extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'cidades';
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'cidade',
+                // 'slugAttribute' => 'slug',
+            ],
+        ];
     }
 
     /**

@@ -31,7 +31,15 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            //'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.mailgun.org',
+                'username' => 'postmaster@sandboxd2e61fb559f34d768fa991ddea3d55ab.mailgun.org',
+                'password' => 'ae2bade2b4d568ae9d691449d622286a',
+                'port' => '465',
+                'encryption' => 'tls',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -49,7 +57,8 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 
-                'guia-comercial/<cidade:[a-z\-]+>/<titulo:[a-z\-]+>/<id:\d+>' => 'guia-comercial/view'
+                'guia-comercial/<cidade:[a-z\-]+>/<titulo:[a-z\-]+>/<id:\d+>' => 'guia-comercial/view',
+                'guia/<slug>'=>'guia/cidade'
             ],
         ],
         // Registrando meu primeiro Component

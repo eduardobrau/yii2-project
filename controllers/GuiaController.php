@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use yii\web\Controller;
 use app\models\Anuncios;
+use app\models\Cidades;
+use yii\web\NotFoundHttpException;
 
 class GuiaController extends Controller{
 
@@ -16,80 +18,41 @@ class GuiaController extends Controller{
   {
     return $this->render('abc');
   }
-
-  public function actionSantoAndre()
-  {
+  /**
+   * Sempre será executado quando a rota coincidir com
+   * yii2/guia/{slug} isso já foi definido em rules de config/web.
+   * Esperando que seja uma Cidade valida, faz a consulta na tabela
+   * Cidades baseado no slug e seta o cidade_id pela propriedade retornada.
+   */
+  public function actionCidade($slug){
+    
+    //Retorna uma linha do objeto Cidades baseado no slug
+    $cidade = $this->findModelBySlug($slug);
     $model = new Anuncios();
-    $model->model = $model;
-    $cidade_id = 1;
+    //Seta $cidade_id dinamicamente, conforme o slug passado via GET da URL
+    $cidade_id = $cidade->id;
+    //Faz uma busca por todos os anuncios baseado no id da Cidade
+    //e retorna um array com os anuncios e paginação
     $dados = $model->getAnuncios($cidade_id);
 
-    //$cidades['cidades'] = Cidades::find()->asArray()->all();
+    return $this->render('cidade', $dados);
 
-    //$anuncios = array_merge($dados,$cidades);
-
-    return $this->render('santo-andre', $dados);
   }
 
-  public function actionSaoBernardoDoCampo()
+  /**
+   * Finds the Cidades model based on its slug value.
+   * If the model is not found, a 404 HTTP exception will be thrown.
+   * @param integer $id
+   * @return Cidades the loaded model
+   * @throws NotFoundHttpException if the model cannot be found
+   */
+  protected function findModelBySlug($slug)
   {
-    $model = new Anuncios();
-    $model->model = $model;
-    $cidade_id = 2;
-    $dados = $model->getAnuncios($cidade_id);
-
-    return $this->render('sao-bernardo-do-campo', $dados);
+    if (($model = Cidades::find()->where(['slug'=>$slug])->one()) !== null) {
+      return $model;
+    } else {
+      throw new NotFoundHttpException('The requested page does not exist.');
+    }
   }
-
-  public function actionSaoCaetanoDoSul()
-  {
-    $model = new Anuncios();
-    $model->model = $model;
-    $cidade_id = 3;
-    $dados = $model->getAnuncios($cidade_id);
-
-    return $this->render('sao-caetano-do-sul', $dados);
-  }
-
-  public function actionDiadema()
-  {
-    $model = new Anuncios();
-    $model->model = $model;
-    $cidade_id = 4;
-    $dados = $model->getAnuncios($cidade_id);
-
-    return $this->render('diadema', $dados);
-  }
-
-  public function actionMaua()
-  {
-    $model = new Anuncios();
-    $model->model = $model;
-    $cidade_id = 5;
-    $dados = $model->getAnuncios($cidade_id);
-
-    return $this->render('maua', $dados);
-  }
-
-  public function actionRibeiraoPires()
-  {
-    $model = new Anuncios();
-    $model->model = $model;
-    $cidade_id = 6;
-    $dados = $model->getAnuncios($cidade_id);
-
-    return $this->render('ribeirao-pires', $dados);
-  }
-
-  public function actionRioGrandeDaSerra()
-  {
-    $model = new Anuncios();
-    $model->model = $model;
-    $cidade_id = 7;
-    $dados = $model->getAnuncios($cidade_id);
-
-    return $this->render('rio-grande-da-serra', $dados);
-  }
-
 
 }
