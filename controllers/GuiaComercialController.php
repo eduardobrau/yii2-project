@@ -29,7 +29,6 @@ class GuiaComercialController extends Controller{
   public function actionSantoAndre(){
     
     $model = new Anuncios();
-    $model->model = $model;
     $cidade_id = 1;
     $pagSize = 10;
     $anuncios = $model->getAnuncios($cidade_id, $pagSize);
@@ -41,7 +40,6 @@ class GuiaComercialController extends Controller{
   public function actionSaoBernardoDoCampo(){
     
     $model = new Anuncios();
-    $model->model = $model;
     $cidade_id = 2;
     $pagSize = 10;
     $anuncios = $model->getAnuncios($cidade_id, $pagSize);
@@ -53,7 +51,6 @@ class GuiaComercialController extends Controller{
   public function actionSaoCaetanoDoSul(){
     
     $model = new Anuncios();
-    $model->model = $model;
     $cidade_id = 3;
     $pagSize = 10;
     $anuncios = $model->getAnuncios($cidade_id, $pagSize);
@@ -65,7 +62,6 @@ class GuiaComercialController extends Controller{
   public function actionDiadema(){
     
     $model = new Anuncios();
-    $model->model = $model;
     $cidade_id = 4;
     $pagSize = 10;
     $anuncios = $model->getAnuncios($cidade_id, $pagSize);
@@ -77,7 +73,6 @@ class GuiaComercialController extends Controller{
   public function actionMaua(){
     
     $model = new Anuncios();
-    $model->model = $model;
     $cidade_id = 5;
     $pagSize = 10;
     $anuncios = $model->getAnuncios($cidade_id, $pagSize);
@@ -89,7 +84,6 @@ class GuiaComercialController extends Controller{
   public function actionRibeiraoPires(){
     
     $model = new Anuncios();
-    $model->model = $model;
     $cidade_id = 6;
     $pagSize = 10;
     $anuncios = $model->getAnuncios($cidade_id, $pagSize);
@@ -101,7 +95,6 @@ class GuiaComercialController extends Controller{
   public function actionRioGrandeDaSerra(){
     
     $model = new Anuncios();
-    $model->model = $model;
     $cidade_id = 7;
     $pagSize = 10;
     $anuncios = $model->getAnuncios($cidade_id, $pagSize);
