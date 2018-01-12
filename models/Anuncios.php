@@ -31,7 +31,6 @@ class Anuncios extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public $model;
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
 
@@ -138,7 +137,7 @@ class Anuncios extends \yii\db\ActiveRecord
 
     public function getAnuncios($cidade_id, $pagSize=NULL){
         
-        $anuncios = $this->model::find()
+        $anuncios = Anuncios::find()
         ->joinWith(['bairro', 'bairro.cidade'])
         ->where([
             'cidades.id' => $cidade_id,
@@ -146,12 +145,12 @@ class Anuncios extends \yii\db\ActiveRecord
         ]);
     
         if($pagSize){
-            $pagination = new Pagination([
+            $pages = new Pagination([
                 'defaultPageSize' => $pagSize,
                 'totalCount' => $anuncios->count(),
             ]);
         }else
-            $pagination = NULL;
+            $pages = NULL;
 
         $query = $anuncios
         /* ->joinWith(['bairro','bairro.cidade'])
@@ -159,15 +158,49 @@ class Anuncios extends \yii\db\ActiveRecord
         ->asArray();
         if($pagSize){
             $query = $query
-            ->offset($pagination->offset)
-            ->limit($pagination->limit);
+            ->offset($pages->offset)
+            ->limit($pages->limit);
         }
         $query = $query
         ->all();
 
-        $anuncios = array('anuncios' => $query, 'pagination'  => $pagination,);
+        $anuncios = array('anuncios' => $query, 'pages'  => $pages,);
 
         return $anuncios;
+    }
+
+    public function pesquisar($tag_id=false, $categoria_id=false, $cidade_id=false, $bairro_id=false){
+                
+        $query = Anuncios::find()
+        ->joinWith([
+        'categoria',
+        'bairro',
+        'bairro.cidade',
+        'anunciosTags',
+        'anunciosTags.tag',
+        'anunciosRedesSociais',
+        ])
+        ->andFilterWhere([ 
+            
+            'anuncios_tags.tag_id' => $tag_id,
+            'anuncios.categoria_id' => $categoria_id,
+            'cidades.id' => $cidade_id,
+            'bairros.id' => $bairro_id, 
+            'anuncios.status' => self::STATUS_ACTIVE
+        ]); 
+        
+        /* $pages = new Pagination([
+            'totalCount' => $query->count(),
+            
+        ]);
+
+        $query = $query->offset($pages->offset)
+        ->limit($pages->limit)
+        ->all();
+    
+        $anuncios = array('anuncios' => $query, 'pages' => $pages); */
+        
+        return $query;
     }
 
 }

@@ -164,12 +164,7 @@ class AnunciosController extends Controller
       //$headers = $request->headers;
       //$tagsIds = $request->post('AnunciosTags');
       //$tagsIds = $tagsIds['tag_id'];
-      //echo '<pre>'; print_r( $request->post() ) ; echo '</pre>';
-      $uploadForm = new UploadForm();
-      //echo '<pre>'; print_r( $uploadForm ) ; echo '</pre>';
-      $uploadForm->imagens = UploadedFile::getInstances($form, 'imagens');
-      $uploadForm->upload();
-      die;
+      //echo '<pre>'; print_r( $form ) ; echo '</pre>';die;
 
       $transaction = Yii::$app->db->beginTransaction();
 
@@ -213,7 +208,22 @@ class AnunciosController extends Controller
           (!$anunciosRedesSociais->save()) ? $transaction->rollBack() : '';
 
         }
-        
+
+        if($form->imagens)
+        {
+          $uploadForm = new UploadForm();
+          $uploadForm->imagens = UploadedFile::getInstances($form, 'imagens');
+          $imagens = $uploadForm->multipleUpload();
+          
+          foreach ($imagens as $imagem) {
+            $upload = new Upload();
+            $upload->anuncio->id = $model->id;
+            $upload->diretorio = $imagem;
+            
+            ( !$upload->save() ? $transaction->rollBack() : '' );
+          }
+          
+        }
         /*echo '<pre>';
           var_dump($anunciosRedesSociais);
         echo '</pre>';
@@ -273,6 +283,21 @@ class AnunciosController extends Controller
   {
     $this->findModel($id, $bairro_id, $categoria_id)->delete();
     return $this->redirect(['index']);
+  }
+
+  public function actionPesquisar($tag_id=NULL, $categoria_id=Null, $cidade_id=NULL, $bairro_id=NULL){
+    
+    $model = new Anuncios();
+
+    $dataProvider = new ActiveDataProvider([
+      'query' => $model->pesquisar($tag_id, $categoria_id, $cidade_id, $bairro_id),
+      'pagination' => [
+        'pageSize' => 5,
+      ],
+    ]);
+
+    return $this->render('pesquisar', ['anuncios' => $dataProvider]);
+
   }
 
   /**
