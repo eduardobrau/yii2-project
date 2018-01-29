@@ -12,6 +12,7 @@ use app\models\Bairros;
  */
 class BairrosSearch extends Bairros
 {
+    public $cidade;
     /**
      * @inheritdoc
      */
@@ -19,7 +20,7 @@ class BairrosSearch extends Bairros
     {
         return [
             [['id', 'cidade_id'], 'integer'],
-            [['bairro', 'cep'], 'safe'],
+            [['bairro', 'cep', 'cidade'], 'safe'],
         ];
     }
 
@@ -43,6 +44,8 @@ class BairrosSearch extends Bairros
     {
         $query = Bairros::find();
 
+        $query->joinWith(['cidade']);
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -65,6 +68,8 @@ class BairrosSearch extends Bairros
 
         $query->andFilterWhere(['like', 'bairro', $this->bairro])
             ->andFilterWhere(['like', 'cep', $this->cep]);
+        
+        $query->andFilterWhere(['like', 'cidade.cidade', $this->cidade]);
 
         return $dataProvider;
     }
