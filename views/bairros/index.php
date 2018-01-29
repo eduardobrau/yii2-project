@@ -27,7 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'bairro',
             'cep',
-            'cidade_id',
+            //'cidade_id',
+            [
+                'attribute' => 'cidade_id',
+                'label' => 'Cidade',
+                'value' => function($model){
+                    return $model->cidade->cidade;
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
