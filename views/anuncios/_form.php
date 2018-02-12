@@ -6,7 +6,7 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use app\models\Cidades;
 //use yii\helpers\VarDumper;
-//echo '<pre>'; print_r($model->tagsID); echo '</pre>';
+//echo '<pre>'; print_r($model->redes_sociais); echo '</pre>';die;
 //echo '<pre>'; VarDumper::dump($model); echo '</pre>';
 
 /* @var $this yii\web\View */
@@ -27,26 +27,36 @@ use app\models\Cidades;
     <?= $form->field($model, 'texto')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
-        <label for="sel1">Selecione até 5 Palavras Chaves com CTRL + click:</label>
-        <select name="AnunciosTags['tag_id'][]" multiple="multiple" id="AnunciosTags-tag_id" class="form-control">
-            <?php foreach ($model->tagsID as $key => $value) {
-                echo '<option value="'.$value->id.'">' .$value->tag. '</option>';
-            } ?>
-        </select>
+        <?php $model->setSelectedTags(); ?>
+        <?=  $form->field($model, 'tags_id')->dropDownList(
+            ArrayHelper::map(
+                $model->tagsID,
+                'id',
+                'tag'
+            ),
+            [
+                'multiple' => 'multiple',
+                'selected' => 'selected',
+                'id' => 'AnunciosTags-tag_id',
+                'prompt'=>'Selecione até 3 palavras chaves',
+            ]
+        )  ?>
     </div>
 
     <?= $form->field($model, 'categoria_id')->dropDownList(
-            \yii\helpers\ArrayHelper::map(
-                    $model->categoria_id,
-                    'id',
-                    'categoria'
-            ),
-            [
-                    'prompt'=>'Selecione uma categoria'
-            ]
+        
+        ArrayHelper::map(
+            $model->categoriasID,
+            'id',
+            'categoria'
+        ),
+        [
+            'prompt'=>'Selecione uma categoria',
+            'selected' => 'selected',
+        ]
     ) ?>
 
-    <?= $form->field($model, 'telefone')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'telefone')->textInput(['maxlength' => true,'class'=>'form-control phone_with_ddd']) ?>
 
     <?= $form->field($model, 'site')->textInput(['maxlength' => true]) ?>
 
@@ -54,7 +64,7 @@ use app\models\Cidades;
 
     <?= $form->field($model, 'cidade_id')->dropDownList(
         ArrayHelper::map(
-          /*Cidades::find()->all()*/$model->cidade_id,
+          $model->cidadesID,
           'id',
           'cidade'
         ),
@@ -73,19 +83,47 @@ use app\models\Cidades;
     <div class="form-group">
         <?php /* Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) */?>
     </div>
+    <?php
+    /**
+     * Primeira regra deve ser passado um objeto como parametro
+     * Esse objeto verifica se uma de suas propriedades tem valor
+     * mas para isso essa deve ser chamada apenas dentro de um
+     * array por exemplo $objeto[$key]->url na verdade está 
+     * incapsulando $model->redes_sociais[$key]->url
+     */
+    function retornaUrl($redes_sociais,$ocorrencia){
+       
+        if( !empty($redes_sociais) ){
+            //echo '<pre>'; print_r($redes_sociais); echo '</pre>';die;
+            foreach ($redes_sociais as $key => $rede_social) {
+                //echo '<pre>'; print_r($rede_social->rede_social_id); echo '</pre>';die;
+                if( !empty($rede_social->url) && ($rede_social->rede_social_id == $ocorrencia) )
+                    return $rede_social->url; 
+            }
+        }else
+            return '';
+         
+    }
+    ?>
     <fieldset class="form-group">
         <legend>Redes Sociais</legend>
-    <?php foreach ($model['redesSociaisID'] as $index => $redeSocial){ ?>
-        <div class="form-group form-inline">
-            <label for="exampleInputName2"><?= ++$index.'.'.$redeSocial->rede_social?></label>
+    <?php foreach ($model->redesSociaisID as $index => $redeSocial){ ?>
+
+        <div class="form-group">
+            <label for="exampleInputName2"><?=$redeSocial->rede_social?></label>
             <!-- type, input name, input value, options -->
-            <?= Html::input('text', 'AnunciosRedesSociais['.$index.'][url]', '', ['class' => 'form-control'])?>
+            <?= Html::input(
+                'text',
+                'AnunciosRedesSociais['.$index.'][url]',
+                retornaUrl($model->redes_sociais, $redeSocial->id),
+                ['class' => 'form-control'])?>
             <?= Html::input('hidden', 'AnunciosRedesSociais['.$index.'][id]', $redeSocial->id)?>
         </div>
+
     <?php } ?>
     </fieldset>
     <div class="form-group">
-        <?= $form->field($model, 'imagens[]')->fileInput(['multiple' => true, 'accept' => 'image/*', 'class' => 'form-control']) ?>
+        <?php // $form->field($model, 'imagens[]')->fileInput(['multiple' => true, 'accept' => 'image/*', 'class' => 'form-control']) ?>
         <?php // Html::fileInput('imagens[]', null, ['multiple' => true, 'accept' => 'image/*', 'class' => 'form-control'])?>
     </div>
     <?= Html::submitButton('Salvar', ['class' => 'btn btn-default']) ?>
